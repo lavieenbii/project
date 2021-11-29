@@ -3,7 +3,6 @@ import Map from "./components/maps";
 import { useState, useEffect } from "react";
 import Axious from "../node_modules/axios";
 import "leaflet/dist/leaflet.css";
-import L from "leaflet/dist/leaflet";
 import { LayerGroup } from "leaflet";
 
 function App() {
@@ -42,14 +41,6 @@ function App() {
     setNewMissionName("");
   };
 
-  const saveToDatabase = () => {
-    let namaMisi = prompt("enter mission name");
-    Axious.post("http://localhost:3001/", {
-      namaMisi: namaMisi,
-      geoJSON: JSON.stringify(LayerGroup.toGeoJSON()),
-    });
-  };
-
   return (
     <main>
       <div className="App">
@@ -81,7 +72,7 @@ function App() {
         <h4>Make your own mission plane by draw it in the map</h4>
         <Map></Map>
         <br />
-        <button onClick={saveToDatabase}>Create</button>
+
         <h1>List Mission</h1>
         <h4>Here are your missions that have been created before</h4>
         <table cellPadding="10" width="100%">

@@ -1,11 +1,20 @@
 import "leaflet/dist/leaflet.css";
 import L from "leaflet/dist/leaflet";
 import { useEffect } from "react";
+import Axious from "../../node_modules/axios";
 import { icon, marker } from "leaflet";
 
+const layerGroup = L.layerGroup([]);
+
+const saveToDatabase = () => {
+  let namaMisi = prompt("enter mission name");
+  Axious.post("http://localhost:3001/", {
+    namaMisi: namaMisi,
+    geoJSON: JSON.stringify(layerGroup.toGeoJSON()),
+  });
+};
 function Map() {
   const centerCoor = [-7.770905, 110.377637];
-  const layerGroup = L.layerGroup([]);
 
   useEffect(() => {
     const mymap = L.map("mapid", {
@@ -63,6 +72,7 @@ function Map() {
       <button onClick={(e) => console.log(layerGroup.toGeoJSON())}>
         Generate geoJSON
       </button>
+      <button onClick={saveToDatabase}>Create</button>
     </>
   );
 }
