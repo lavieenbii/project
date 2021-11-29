@@ -13,6 +13,7 @@ const saveToDatabase = () => {
     geoJSON: JSON.stringify(layerGroup.toGeoJSON()),
   });
 };
+
 function Map() {
   const centerCoor = [-7.770905, 110.377637];
 

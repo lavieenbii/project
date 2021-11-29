@@ -9,9 +9,11 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
     "leaflet": "^1.7.1",
+    "plotly.js": "^2.6.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-leaflet-draw": "^0.19.8",
+    "react-plotly.js": "^2.5.1",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
