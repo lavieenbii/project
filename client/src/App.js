@@ -59,7 +59,7 @@ function App() {
           onChange={(event) => {
             setNamaMisi(event.target.value);
           }}
-        />
+        /><br/>
         <label>geoJSON :</label>
         <input
           type="text"
@@ -67,11 +67,11 @@ function App() {
           onChange={(event) => {
             setGeoJSON(event.target.value);
           }}
-        />
-        <button onClick={createMission}>create</button>
+        /><br/>
+        <button onClick={createMission}>Create</button>
         <h4>Make your own mission plane by draw it in the map</h4>
         <Map></Map>
-        <br />
+        <br/>
 
         <h1>List Mission</h1>
         <h4>Here are your missions that have been created before</h4>
