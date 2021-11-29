@@ -2,16 +2,22 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const cors = require("cors");
-const sqlite3 = require("sqlite3");
+const mysql = require("mysql");
 
-const db = new sqlite3.Database("./gcs.db");
+var db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "pati211002",
+  database: "gcs",
+  port: "3306",
+});
 
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", function (req, res, next) {
-  db.all("SELECT * FROM MissionPlan", (err, rows) => {
+  db.query("SELECT * FROM MissionPlan", (err, rows) => {
     if (err) {
       console.log(err);
       res.status(500).json({ status: "error" });
@@ -27,7 +33,7 @@ app.post("/", (req, res) => {
 
   const create = `INSERT INTO MissionPlan(planName, g3wp) VALUES (?, ?)`;
 
-  db.run(create, [namaMisi, geoJSON], (err, result) => {
+  db.query(create, [namaMisi, geoJSON], (err, result) => {
     if (err) {
       return console.log(err.message);
     }
@@ -38,7 +44,7 @@ app.post("/", (req, res) => {
 app.get("/delete/:id", (req, res) => {
   const id = req.params.id;
   const delete_misi = `DELETE FROM MissionPlan WHERE planId = ${id}`;
-  db.run(delete_misi, (err, result) => {
+  db.query(delete_misi, (err, result) => {
     if (err) {
       return console.log(err.message);
     }
@@ -46,29 +52,16 @@ app.get("/delete/:id", (req, res) => {
   });
 });
 
-// app.get("/delete/:id", function (req, res) {
-//   let id = req.params.id;
-//   db.run(`DELETE FROM MissionPlan WHERE planId = ${id}`, (err) => {
-//     if (err) {
-//       console.log(err);
-//       return res.status(500).json({
-//         status: "error",
-//       });
-//     }
-//     res.status(200).send("delete");
-//   });
-// });
-
+//Update the name of mission
 app.get("/update", (req, res) => {
-  const namaMisi = req.body.namaMisi;
+  const misi = req.body.namaMisi;
   const geoJSON = req.body.geoJSON;
-  const create = `UPDATE SET planName MissionPlan VALUES = misi WHERE g3wp = a`;
-
-  db.run(create, [namaMisi, geoJSON], (err, result) => {
+  const sqlUpdate = "UPDATE MissionPlan SET planName = (?) WHERE g3wp = (?)";
+  db.query(sqlUpdate, [misi, geoJSON], (err, result) => {
     if (err) {
       return console.log(err.message);
     }
-    res.send(result);
+    res.send("update");
   });
 });
 

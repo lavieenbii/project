@@ -2,13 +2,15 @@ import "./App.css";
 import Map from "./components/maps";
 import { useState, useEffect } from "react";
 import Axious from "../node_modules/axios";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet/dist/leaflet";
+import { LayerGroup } from "leaflet";
 
 function App() {
   const [namaMisi, setNamaMisi] = useState("");
   const [geoJSON, setGeoJSON] = useState("");
-  const [planId, setplanId] = useState("");
   const [missionList, setMissionList] = useState([]);
-  const [newMission, setNewMission] = useState([]);
+  const [newMissionName, setNewMissionName] = useState("");
 
   useEffect(() => {
     Axious.get("http://localhost:3001/").then((response) => {
@@ -25,26 +27,28 @@ function App() {
   };
 
   const deleteMission = (id) => {
-    Axious.get(`http:localhost:3001/delete/${id}`, {
-      planId: id,
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    Axious.get(`http://localhost:3001/delete/${id}`).then((response) => {
+      alert("your mission is deleted");
+    });
   };
 
-  // const updateMission = (misi) => {
-  //   Axious.put("http:localhost:3001/update", {
-  //     namaMisi: misi,
-  //     geoJSON: newGeoJSON,
-  //   });
-  //   setNewMission("");
-  // };
+  const updateName = () => {
+    Axious.get("http://localhost:3001/update", {
+      namaMisi: newMissionName,
+      geoJSON: geoJSON,
+    }).then((response) => {
+      alert("your mission is update");
+    });
+    setNewMissionName("");
+  };
 
-  //save to data base by map
+  const saveToDatabase = () => {
+    let namaMisi = prompt("enter mission name");
+    Axious.post("http://localhost:3001/", {
+      namaMisi: namaMisi,
+      geoJSON: JSON.stringify(LayerGroup.toGeoJSON()),
+    });
+  };
 
   return (
     <main>
@@ -74,11 +78,10 @@ function App() {
           }}
         />
         <button onClick={createMission}>create</button>
-
         <h4>Make your own mission plane by draw it in the map</h4>
         <Map></Map>
         <br />
-        <button>Create</button>
+        <button onClick={saveToDatabase}>Create</button>
         <h1>List Mission</h1>
         <h4>Here are your missions that have been created before</h4>
         <table cellPadding="10" width="100%">
@@ -113,16 +116,15 @@ function App() {
               <h2>Mission Name:{val.planName}</h2>
               <p>id : {val.planId}</p>
               <p>geoJSON: {val.g3wp}</p>
-              <button type="submit" onClick={() => deleteMission(val.planId)}>
-                Delete
-              </button>
+              <button onClick={() => deleteMission(val.planId)}>Delete</button>
               <input
                 type="text"
+                id="updateInput"
                 onChange={(e) => {
-                  setNewMission(e.target.value);
+                  setNewMissionName(e.target.value);
                 }}
               />
-              <button>update</button>
+              <button onClick={(e) => updateName(val.planName)}>update</button>
             </div>
           );
         })}
