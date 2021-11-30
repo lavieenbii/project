@@ -49,28 +49,33 @@ function App() {
             <div className="Head-comp">Ground Control Station</div>
           </b>
           <a className="Head-comp">Home</a>
-          <a className="Head-comp">Mission List</a>
         </header>
         <h1>Create Your Mission</h1>
-        <label>Mission Name :</label>
-        <input
-          type="text"
-          name="namaMisi"
-          onChange={(event) => {
-            setNamaMisi(event.target.value);
-          }}
-        /><br/>
-        <label>geoJSON :</label>
-        <input
-          type="text"
-          name="geoJSON"
-          onChange={(event) => {
-            setGeoJSON(event.target.value);
-          }}
-        /><br/>
+        <h4>Make your own mission plane by write down the mission</h4>
+        <div className="writemisi">
+          <br/><label>Mission Name : </label>
+          <input
+            type="text"
+            name="namaMisi"
+            onChange={(event) => {
+              setNamaMisi(event.target.value);
+            }}
+          /><br/><br/>
+          <label>geoJSON : </label>
+          <input
+            type="text"
+            name="geoJSON"
+            onChange={(event) => {
+              setGeoJSON(event.target.value);
+            }}
+          /><br/><br/>
+        </div>
+        <br/><br/>
         <button onClick={createMission}>Create</button>
-        <h4>Make your own mission plane by draw it in the map</h4>
-        <Map></Map>
+        <h4>or by draw it directly on the map</h4>
+        <div className="mapstyle">
+          <Map></Map>
+        </div>        
         <br/>
 
         <h1>List Mission</h1>
