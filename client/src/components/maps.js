@@ -69,10 +69,7 @@ function Map() {
 
   return (
     <>
-      <div id="mapid" style={{ height: "100vh" }}></div>
-      <button onClick={(e) => console.log(layerGroup.toGeoJSON())}>
-        Generate geoJSON
-      </button><br/>
+      <div id="mapid" style={{ width: "100%", height: "600px"}}></div><br/>
       <button onClick={saveToDatabase}>Create</button>
     </>
   );
