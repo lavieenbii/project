@@ -14,6 +14,10 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mysql": "^2.18.1"
+    "leaflet": "^1.7.1",
+    "leaflet-draw": "^1.0.4",
+    "mysql": "^2.18.1",
+    "react-leaflet": "^3.2.2",
+    "react-leaflet-draw": "^0.19.8"
   }
 }
