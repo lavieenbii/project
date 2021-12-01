@@ -1,8 +1,11 @@
 import "leaflet/dist/leaflet.css";
+import { FeatureGroup } from "react-leaflet";
+import { EditControl } from "react-leaflet-draw";
 import L from "leaflet/dist/leaflet";
 import { useEffect } from "react";
 import Axious from "../../node_modules/axios";
 import { icon, marker } from "leaflet";
+import { Marker } from "react-leaflet";
 
 const layerGroup = L.layerGroup([]);
 
@@ -28,7 +31,7 @@ function Map() {
       {
         attribution:
           'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
+        maxZoom: 20,
         id: "mapbox/satellite-v9",
         tileSize: 512,
         zoomOffset: -1,
@@ -39,9 +42,9 @@ function Map() {
 
     //TODO: icon
     const myIcon = L.icon({
-      iconUrl: "img/marker.png",
-      iconSize: [40, 40],
-      iconAnchor: [40, 40],
+      iconUrl: "https://upload.wikimedia.org/wikipedia/commons/8/88/Map_marker.svg",
+      iconSize: [25, 45],
+      iconAnchor: [25, 45],
     });
 
     const polyline = L.polyline([], { color: "red" });

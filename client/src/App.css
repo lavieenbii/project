@@ -31,6 +31,24 @@
   width: 95%;
 }
 
+.showTable {
+  display: inline-block;
+  width: 95%;  
+}
+
+.btntabel {
+  width: 75px;
+  height: 30px;
+}
+
+.tabeldata {
+  padding-left: 20px;
+}
+
+.sr-only {
+  display: none;
+}
+
 .App-header {
   background-color: #76d6dc;
   height: 60px;
